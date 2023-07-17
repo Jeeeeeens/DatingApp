@@ -1,7 +1,9 @@
 using System.Text;
 using API.Data;
+using API.errors;
 using API.extensions;
 using API.Interfaces;
+using API.middleware;
 using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +28,7 @@ internal class Program
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
+    app.UseMiddleware<ExceptionMiddleware>();
     if (app.Environment.IsDevelopment())
     {
       app.UseSwagger();
